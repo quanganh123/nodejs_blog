@@ -10,9 +10,42 @@ class CouresController{
             })
         } catch (err) {
             next(err);
-        }
+        };
 
 
+    };
+
+    create(req, res, next){
+        res.render('courses/create');
+    };
+
+    store(req, res, next){
+        const fromData = req.body;
+        fromData.image = `https://img.youtube.com/vi/${req.body.idVieo}/sddefault.jpg`
+        const course = new Coures(fromData);
+        course.save()
+        .then(() => res.redirect('/'))
+        .catch(error => {})
+    };
+
+    edit(req, res, next){
+        Coures.findById(req.params.id)
+        .then(courses => res.render('courses/edit', {
+            courses: courses
+        }))
+        .catch(next);
+    };
+    
+    update(req, res, next){
+        Coures.updateOne({_id: req.params.id} , req.body)
+        .then(() => res.redirect('/me/stored/courses'))
+        .catch(next);
+    };
+    
+    delete(req, res, next){
+        Coures.remove({_id: req.params.id})``
+        .then(() => res.redirect('back'))
+        .catch(next);
     };
 };
 
