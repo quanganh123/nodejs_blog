@@ -18,7 +18,7 @@
                 <td>{{this.createdAt}}</td>
                 <td>
                     <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-                    <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this.id}}" data-target="#delete">Xóa</a>
+                    <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete">Xóa</a>
                 </td>
             </tr>
             {{/each}}
@@ -46,7 +46,7 @@
   </div>
 </div>
 
-<form method="post" name="delete-courses-from"></form>
+<form method="POST" name="delete-courses-from"></form>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -56,12 +56,13 @@
 
         $('#delete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            var coursesId = button.data('id');
+            coursesId = button.data('id');
+            console.log(coursesId);
         });
 
         btnDeleteCourse.onclick = function(){
-            deleteFrom.action = '/courses/' + coursesId + '?_method=DELETE';
-            deleteFrom.submit();
+          deleteFrom.action = '/courses/' + coursesId + '?_method=DELETE';
+          deleteFrom.submit();
         }
     });
 </script>
